@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>abc.html</title>
+    <title>{{url}}</title>
     <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
 </head>
 <body>
@@ -40,7 +40,7 @@
                 <div id="inner_content">
                     <div id="header">
                         <p id="username">Daman</p>
-                        <a href="#" id="close">x</a>
+                        <a href="#" onclick="RemoveDiv()" id="close">x</a>
                     </div>
                     <div id="main">
                         <h3 id="msg">{{ message }}</h3>
@@ -53,7 +53,7 @@
     {% endif %}
     <script type="text/javascript">
         function RemoveDiv(){
-            document.getElementById("message").innerHTML = " ";
+            document.getElementById("cta_content").remove();
         }
     </script>
 </body>
