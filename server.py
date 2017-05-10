@@ -1,9 +1,11 @@
-from flask import Flask, jsonify, render_template, request, session
+from flask import Flask, jsonify, render_template, request, \
+    redirect
 import MySQLdb
-import random, string
+import random
+import string
+import requests
 
 app = Flask(__name__)
-
 
 
 @app.route("/")
@@ -19,7 +21,12 @@ def renderUI(shorturl):
     x = c.execute(query + values)
     if x:
         data = c.fetchall()
-        return render_template("abc.html", url=str(data[0][2]), message=str(data[0][3]))
+        if str(data[0][4]) == "1":
+            return redirect(str(data[0][2]))
+        return render_template("abc.html",
+                               url=str(data[0][2]),
+                               message=str(data[0][3]),
+                               sameorigin=str(data[0][4]))
     else:
         return "x not found"
     return render_template("abc.html")
@@ -34,9 +41,14 @@ def create_entry():
             message = data.get("message")
             c, conn = connection()
             shorturl = randomword()
+            req = requests.get(sourceurl)
+            if 'x-frame-options' or 'X-Frame-Options' in req.headers.keys():
+                sameorigin = 1
+            else:
+                sameorigin = 0
             query = "INSERT into url VALUES"
-            values = "('{0}','{1}','{2}','{3}')"\
-                .format("daman3", shorturl, sourceurl, message)
+            values = "('{0}','{1}','{2}','{3}','{4}')"\
+                .format("daman3", shorturl, sourceurl, message, sameorigin)
             c.execute(query + values)
             conn.commit()
             c.close()

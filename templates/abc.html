@@ -6,7 +6,7 @@
 </head>
 <body>
     
-    {% if url %}
+    {% if sameorigin == '0' %}
     
     <iframe id="main_iframe" src={{url}} frameborder="0"></iframe>
             <!-- <div id="main_message_bar">
