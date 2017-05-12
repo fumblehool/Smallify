@@ -1,16 +1,74 @@
 from flask import Flask, jsonify, render_template, request, \
-    redirect
+    redirect, url_for, session
 import MySQLdb
 import random
 import string
 import requests
+from config import secrets, Secret_Key
+from flask.ext.script import Manager
+from flask_oauth import OAuth
+
 
 app = Flask(__name__)
+manager = Manager(app)
+
+GOOGLE_CLIENT_ID = secrets['GOOGLE_CLIENT_ID']
+GOOGLE_CLIENT_SECRET = secrets['GOOGLE_CLIENT_SECRET']
+REDIRECT_URI = secrets['REDIRECT_URI']
+app.secret_key = Secret_Key
+
+oauth = OAuth()
+
+google = oauth.remote_app('google',
+                          base_url='https://www.google.com/accounts/',
+                          authorize_url='https://accounts.google.com/o/oauth2/auth',
+                          request_token_url=None,
+                          request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email',
+                                                'response_type': 'code'},
+                          access_token_url='https://accounts.google.com/o/oauth2/token',
+                          access_token_method='POST',
+                          access_token_params={'grant_type': 'authorization_code'},
+                          consumer_key=GOOGLE_CLIENT_ID,
+                          consumer_secret=GOOGLE_CLIENT_SECRET)
 
 
 @app.route("/")
 def main():
-    return render_template("index.html")
+    access_token = session.get('access_token')
+    if access_token is None:
+        return redirect(url_for('login'))
+
+    access_token = access_token[0]
+    url = "https://www.googleapis.com/oauth2/v1/userinfo"
+
+    try:
+        req = requests.get(url,
+                           params=dict(access_token=access_token)
+                           ).json()
+        session['uid'] = req['id']
+    except Exception:
+        return redirect(url_for("login"))
+
+    return render_template('index.html')
+
+
+@app.route('/login')
+def login():
+    callback = url_for('authorized', _external=True)
+    return google.authorize(callback=callback)
+
+
+@app.route(REDIRECT_URI)
+@google.authorized_handler
+def authorized(resp):
+    access_token = resp['access_token']
+    session['access_token'] = access_token, ''
+    return redirect(url_for('main'))
+
+
+@google.tokengetter
+def get_access_token():
+    return session.get('access_token')
 
 
 @app.route("/<shorturl>")
@@ -42,13 +100,13 @@ def create_entry():
             c, conn = connection()
             shorturl = randomword()
             req = requests.get(sourceurl)
-            if 'x-frame-options' or 'X-Frame-Options' in req.headers.keys():
+            if 'X-Frame-Options' in req.headers.keys():
                 sameorigin = 1
             else:
                 sameorigin = 0
             query = "INSERT into url VALUES"
             values = "('{0}','{1}','{2}','{3}','{4}')"\
-                .format("daman3", shorturl, sourceurl, message, sameorigin)
+                .format(session['uid'], shorturl, sourceurl, message, sameorigin)
             c.execute(query + values)
             conn.commit()
             c.close()
@@ -70,11 +128,6 @@ def ShortUrl(shorturl):
         return "not Found", 404
 
 
-@app.route("/login/", methods=['GET', 'POST'])
-def login():
-    return "Login"
-
-
 @app.route("/geturl/", methods=['GET', 'POST'])
 def geturl():
     return render_template("geturl.html")
@@ -91,4 +144,4 @@ def randomword():
     return ''.join(random.choice(string.lowercase) for i in range(7))
 
 
-app.run(host="0.0.0.0", debug=True, port=7777)
+manager.run()
