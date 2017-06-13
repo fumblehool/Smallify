@@ -85,7 +85,7 @@ var App = React.createClass({
             <div className="container">
                 <div className="col-md-3"></div>
                 <div className="col-md-6 text-center">
-                    <h1>RestAPI</h1>
+                    <h1>Smallify</h1>
                     <Form onSubmit={this.postToServer}
                      shorturl={this.state.shorturl}/>
                     <div>

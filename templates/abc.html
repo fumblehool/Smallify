@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>{{url}}</title>
-    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/dev/style.css')}}" rel="stylesheet">
 </head>
 <body>
     
-    {% if sameorigin == '0' %}
+
     
     <iframe id="main_iframe" src={{url}} frameborder="0"></iframe>
             <!-- <div id="main_message_bar">
@@ -49,8 +49,6 @@
                 </div>
             </div>
             
-    
-    {% endif %}
     <script type="text/javascript">
         function RemoveDiv(){
             document.getElementById("cta_content").remove();

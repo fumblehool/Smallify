@@ -1,35 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smallify Template">
+    <meta name="author" content="Damanpreet Singh">
 
-<head>
     <title>
-        {% block title %}
-            RestAPI
-        {% endblock %}
+    {% block title %}
+        Title
+    {% endblock %}
     </title>
+
+    <!-- Bootstrap CSS file -->
+    <link href="{{url_for('static', filename='css/lib/bootstrap.min.css')}}" rel="stylesheet">
+<style>
     
+    body {
+        margin-top: 75px;
+    }
 
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
-    <script src="{{url_for('static', filename='js/react.js')}}"></script>
-    <script src="{{url_for('static', filename='js/react-dom.js')}}"></script>
-    <script type="text/babel" src="{{url_for('static', filename='js/index.js')}}"></script>
-    <script
-              src="https://code.jquery.com/jquery-3.1.1.min.js"
-              integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-              crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.js"></script>
+    a.none{
+        text-decoration: none;
+    }
 
-    <script src="https://npmcdn.com/react-router@2.4.0/umd/ReactRouter.min.js"></script>
+
+    footer {
+        margin: 10px 0;
+    }
+
+    #comments, #comments li {
+        margin: 0;
+        padding: 0;
+    }
+
+    #comments li {
+        list-style: none;
+    }
+            
+    .photo {
+        margin-bottom: 10px;
+    }
+
+    .social-buttons button {
+        margin-top: 5px;
+    }
+</style>
+
 </head>
 
 <body>
-    <div id="App">
-    </div>
+    <!-- Header -->
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">           
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Smallify</a>   
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                </ul>
+            </nav>
+        </div>
+    </header>
 
- 
+    <!-- Body -->
+        <center>
+        <div class="jumbotron" style="width: 70%">
+            <h1>UpdateMe App</h1>
+            <p class="lead"></p>
+            <p><a class="btn btn-lg btn-success" href="{{url_for("login")}}" role="button">Get Started!</a>
+            </p>
+        </div>
+        </center>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <hr />
+            <p class="text-center">Copyright &copy; Smallify 2017. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Jquery and Bootstrap Script files -->
+    <script src="{{url_for('static', filename='js/lib/jquery-3.1.1.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
 </body>
-
 </html>
+

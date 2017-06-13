@@ -4,7 +4,7 @@ import MySQLdb
 import random
 import string
 import requests
-from config import secrets, Secret_Key
+from config import secrets, Secret_Key, db
 from flask.ext.script import Manager
 from flask_oauth import OAuth
 
@@ -36,7 +36,7 @@ google = oauth.remote_app('google',
 def main():
     access_token = session.get('access_token')
     if access_token is None:
-        return redirect(url_for('login'))
+        return render_template('index.html')
 
     access_token = access_token[0]
     url = "https://www.googleapis.com/oauth2/v1/userinfo"
@@ -49,7 +49,7 @@ def main():
     except Exception:
         return redirect(url_for("login"))
 
-    return render_template('index.html')
+    return render_template('home.html')
 
 
 @app.route('/login')
@@ -74,17 +74,14 @@ def get_access_token():
 @app.route("/<shorturl>")
 def renderUI(shorturl):
     c, conn = connection()
-    query = "SELECT * FROM url WHERE shorturl="
+    query = "SELECT * FROM urls WHERE shorturl="
     values = "'{0}'".format(str(shorturl))
     x = c.execute(query + values)
     if x:
         data = c.fetchall()
-        if str(data[0][4]) == "1":
-            return redirect(str(data[0][2]))
         return render_template("abc.html",
                                url=str(data[0][2]),
-                               message=str(data[0][3]),
-                               sameorigin=str(data[0][4]))
+                               message=str(data[0][3]))
     else:
         return "x not found"
     return render_template("abc.html")
@@ -99,14 +96,9 @@ def create_entry():
             message = data.get("message")
             c, conn = connection()
             shorturl = randomword()
-            req = requests.get(sourceurl)
-            if 'X-Frame-Options' in req.headers.keys():
-                sameorigin = 1
-            else:
-                sameorigin = 0
-            query = "INSERT into url VALUES"
-            values = "('{0}','{1}','{2}','{3}','{4}')"\
-                .format(session['uid'], shorturl, sourceurl, message, sameorigin)
+            query = "INSERT into urls VALUES"
+            values = "('{0}','{1}','{2}','{3}')"\
+                .format(session['uid'], shorturl, sourceurl, message)
             c.execute(query + values)
             conn.commit()
             c.close()
@@ -134,7 +126,8 @@ def geturl():
 
 
 def connection():
-    conn = MySQLdb.connect("localhost", "root", "Daman", "restapi")
+    conn = MySQLdb.connect(db["host"], db["user"], db["password"],
+                           db["database"])
     c = conn.cursor()
 
     return c, conn
