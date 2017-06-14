@@ -3,100 +3,6 @@
     height:100%;
     width:100%;
 }
-/*
-#main_message_bar{
-    position: fixed;
-    bottom: 0; 
-    left:0; 
-    width: 100%; 
-    height: 20%; 
-    border-radius: 10px;
-    border:3px solid red;
-    padding:2px;
-}
-
-#profile_id{
-    width:7%; 
-    height: 100%; 
-    border-radius: 10px; 
-    display:inline-block;
-    float:left;
-}
-
-#profile_img{
-    border-radius: 5px;
-    padding:0px;
-    height: 100%;
-    width: 100%; 
-}
-
-#message{
-    border:2px solid green;  
-    height: 100%;
-    border-radius: 12px;
-    display:inline-block;
-    margin-left: 15px;
-    background: white;
-}
-
-#message_top_bar{
-    width:100%;
-    height: 25%;
-    border: 2px dotted black;
-}
-
-#close_button{
-    float:right;
-    margin-right: 10px;
-    height: 100%;
-    width: 10%;
-    padding:0; 
-    text-align: center;
-}
-
-#x{
-    text-decoration:none;
-    width:5px;
-    height:5px;
-}
-
-#message_text_bar{
-    border:3px dotted violet; 
-    float:left;
-    display: inline-block; 
-    width:100%; 
-    height: 50%;
-}
-
-#message_text{
-    float: left;
-    display: inline-block;
-}
-
-#cta{
-    display: inline-block;
-    margin-left: 15px; 
-    border:3px dotted black;
-}
-
-#cta_button{
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #4E9CAF;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-}*/
-
-
-
-
-
-
-
 
 #cta_content{
     position: fixed;
@@ -156,3 +62,33 @@
     font-weight: bold;
     text-decoration: none;
 }
+    
+    #body {
+        margin-top: 75px;
+    }
+
+    a.none{
+        text-decoration: none;
+    }
+
+
+    footer {
+        margin: 10px 0;
+    }
+
+    #comments, #comments li {
+        margin: 0;
+        padding: 0;
+    }
+
+    #comments li {
+        list-style: none;
+    }
+            
+    .photo {
+        margin-bottom: 10px;
+    }
+
+    .social-buttons button {
+        margin-top: 5px;
+    }

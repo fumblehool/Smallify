@@ -9,89 +9,32 @@
 
     <title>
     {% block title %}
-        Title
+        Smallify
     {% endblock %}
     </title>
 
     <!-- Bootstrap CSS file -->
     <link href="{{url_for('static', filename='css/lib/bootstrap.min.css')}}" rel="stylesheet">
-<style>
-    
-    body {
-        margin-top: 75px;
-    }
-
-    a.none{
-        text-decoration: none;
-    }
-
-
-    footer {
-        margin: 10px 0;
-    }
-
-    #comments, #comments li {
-        margin: 0;
-        padding: 0;
-    }
-
-    #comments li {
-        list-style: none;
-    }
-            
-    .photo {
-        margin-bottom: 10px;
-    }
-
-    .social-buttons button {
-        margin-top: 5px;
-    }
-</style>
-
-</head>
-
-<body>
-    <!-- Header -->
-    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">           
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="#" class="navbar-brand">Smallify</a>   
-            </div>
-            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-                <ul class="nav navbar-nav">
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Body -->
-        <center>
-        <div class="jumbotron" style="width: 70%">
-            <h1>UpdateMe App</h1>
-            <p class="lead"></p>
-            <p><a class="btn btn-lg btn-success" href="{{url_for("login")}}" role="button">Get Started!</a>
-            </p>
-        </div>
-        </center>
-
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <hr />
-            <p class="text-center">Copyright &copy; Smallify 2017. All rights reserved.</p>
-        </div>
-    </footer>
-    <!-- Jquery and Bootstrap Script files -->
+    <link href="{{url_for('static', filename='css/dev/style.css')}}" rel="stylesheet">
+    <script type="text/babel" src="{{url_for('static', filename='js/dev/index.js')}}"></script>
+    <script src="{{url_for('static', filename='js/lib/react.js')}}"></script>
+    <script src="{{url_for('static', filename='js/lib/react-dom.js')}}"></script>
     <script src="{{url_for('static', filename='js/lib/jquery-3.1.1.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+        <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<style>
+    body{
+        margin-top:75px;
+    }
+</style>
+</head>
+
+<body>
+<div id="root" data-title="{{data}}">
+
+</div> 
 </body>
 </html>
 

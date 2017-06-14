@@ -17,17 +17,28 @@ GOOGLE_CLIENT_SECRET = secrets['GOOGLE_CLIENT_SECRET']
 REDIRECT_URI = secrets['REDIRECT_URI']
 app.secret_key = Secret_Key
 
+base_url = "https://www.google.com/accounts/"
+authorize_url = "https://accounts.google.com/o/oauth2/auth"
+
+request_token_params = {
+    'scope': 'https://www.googleapis.com/auth/userinfo.email',
+    'response_type': 'code'}
+
+access_token_url = "https://accounts.google.com/o/oauth2/token"
+
+
 oauth = OAuth()
 
 google = oauth.remote_app('google',
-                          base_url='https://www.google.com/accounts/',
-                          authorize_url='https://accounts.google.com/o/oauth2/auth',
+                          base_url=base_url,
+                          authorize_url=authorize_url,
                           request_token_url=None,
-                          request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email',
-                                                'response_type': 'code'},
-                          access_token_url='https://accounts.google.com/o/oauth2/token',
+                          request_token_params=request_token_params,
+                          access_token_url=access_token_url,
                           access_token_method='POST',
-                          access_token_params={'grant_type': 'authorization_code'},
+                          access_token_params={
+                                              'grant_type':
+                                              'authorization_code'},
                           consumer_key=GOOGLE_CLIENT_ID,
                           consumer_secret=GOOGLE_CLIENT_SECRET)
 
@@ -58,6 +69,12 @@ def login():
     return google.authorize(callback=callback)
 
 
+@app.route('/logout/')
+def logout():
+    session.clear()
+    return redirect("/")
+
+
 @app.route(REDIRECT_URI)
 @google.authorized_handler
 def authorized(resp):
@@ -71,6 +88,21 @@ def get_access_token():
     return session.get('access_token')
 
 
+@app.route('/view_records/')
+def view():
+    c, conn = connection()
+    query = "SELECT * FROM urls WHERE userid="
+    value = session['uid']
+    x = c.execute(query + value)
+    if x:
+        data = c.fetchall()
+        return str(str(data[0]))
+    conn.commit()
+    c.close()
+    conn.close()
+    return "View"
+
+
 @app.route("/<shorturl>")
 def renderUI(shorturl):
     c, conn = connection()
@@ -79,11 +111,15 @@ def renderUI(shorturl):
     x = c.execute(query + values)
     if x:
         data = c.fetchall()
+        url = data[0][2]
+        req = requests.get(url)
+        if 'x-frame-options' in req.headers:
+            return redirect(url)
         return render_template("abc.html",
                                url=str(data[0][2]),
                                message=str(data[0][3]))
     else:
-        return "x not found"
+        return redirect(url_for("/"))
     return render_template("abc.html")
 
 

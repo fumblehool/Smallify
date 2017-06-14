@@ -4,7 +4,7 @@
 <head>
     <title>
         {% block title %}
-            Smallify
+            home
         {% endblock %}
     </title>
     
@@ -16,15 +16,15 @@
     <script src="{{url_for('static', filename='js/lib/react.js')}}"></script>
     <script src="{{url_for('static', filename='js/lib/react-dom.js')}}"></script>
     <script type="text/babel" src="{{url_for('static', filename='js/dev/home.js')}}"></script>
-    <script
-              src="https://code.jquery.com/jquery-3.1.1.min.js"
-              integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-              crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.js"></script>
-
-    <script src="https://npmcdn.com/react-router@2.4.0/umd/ReactRouter.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
 </head>
-
+<style>
+    body{
+        margin-top:75px;
+    }
+</style>
 <body>
     <div id="App">
     </div>

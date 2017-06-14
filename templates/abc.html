@@ -9,45 +9,21 @@
 
     
     <iframe id="main_iframe" src={{url}} frameborder="0"></iframe>
-            <!-- <div id="main_message_bar">
-                <span id="profile_id" style="">
-                    <img id="profile_img" src="http://www.gravatar.com/avatar/aa42327c8ff86ee135f608537a7594c6?s=73&r=g&d=https%3A%2F%2Fffb2efd5105ff0aedbc9-9cdacdeebf0faa19b665bf427f0c8092.ssl.cf1.rackcdn.com%2Fimg%2Fprofile-placeholder.png" style="" />
-                </span>
-                       
-                <span id="message">
-                    <div id="message_top_bar">
-                        <div id="close_button" onclick="RemoveDiv()">
-                            <a id="x" href="#">x
-                            </a>
-                        </div>
-                    </div>
-                    <div id="message_text_bar">
-                        <div id="message_text">
-                            {{message}} 
-                        </div>
-                        <div id="cta">
-                            <a id="cta_button" href="#">
-                                Action
-                            </a>        
-                        </div>
-                    </div>
-                </span>            
-            </div> -->
-            <div id="cta_content">
-                <div id="dp">
-                    <img id="dp_img" src="http://placehold.it/200" alt="">
+        <div id="cta_content">
+            <div id="dp">
+                <img id="dp_img" src="http://placehold.it/200" alt="">
+            </div>
+            <div id="inner_content">
+                <div id="header">
+                    <p id="username">Daman</p>
+                    <a href="#" onclick="RemoveDiv()" id="close">x</a>
                 </div>
-                <div id="inner_content">
-                    <div id="header">
-                        <p id="username">Daman</p>
-                        <a href="#" onclick="RemoveDiv()" id="close">x</a>
-                    </div>
-                    <div id="main">
-                        <h3 id="msg">{{ message }}</h3>
-                        <a href="#" id="cta_btn">Action</a>
-                    </div>
+                <div id="main">
+                    <h3 id="msg">{{ message }}</h3>
+                    <a href="#" id="cta_btn">Action</a>
                 </div>
             </div>
+        </div>
             
     <script type="text/javascript">
         function RemoveDiv(){

@@ -1,3 +1,27 @@
+var Header = React.createClass({
+    render: function(){
+        return(<header className="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">           
+                    <div className="container">
+                        <div className="navbar-header">
+                            <button className="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                            </button>
+                            <a href="#" className="navbar-brand">Smallify</a>   
+                        </div>
+                        <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                            <ul className="nav navbar-nav">
+                                <li><a href="/view_records/">View Record</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </header>)
+    }
+});
+
 var Form = React.createClass({
     handleSubmit: function(event){
         var url = this.refs.sourceurl.value; // this is the source url value
@@ -58,7 +82,7 @@ var ShowShortUrl = React.createClass({
 });
 
 
-var App = React.createClass({
+var Main = React.createClass({
     getInitialState: function(){
         return{
             shorturl: []
@@ -96,6 +120,17 @@ var App = React.createClass({
                 <div className="col-md-3"></div>
             </div>
         )
+    }
+});
+
+var App = React.createClass({
+    render: function(){
+        return(
+            <div>
+            <Header/>
+            <Main url="/api/"/>
+            </div>
+        );
     }
 });
 
